@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS "tasks" (
 	"name" text NOT NULL,
 	"user_id" uuid,
 	"description" text,
-	"deadline" timestamp,
+	"deadline" timestamp NOT NULL,
 	"priority" "priority_enum" NOT NULL,
 	"category" "task_category_enum" NOT NULL,
 	"image" text,
