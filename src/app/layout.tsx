@@ -1,8 +1,70 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
+import ReactQueryProvider from "@/Providers/reactQuery";
+import { getQueryClient } from "@/lib/reactQuery";
+import { getUserTasks } from "@/actions/task";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--inter" });
+
+const sfProText = localFont({
+  variable: "--sfProText",
+  src: [
+    {
+      path: "../../public/fonts/SF-Pro-Text-Font-Family/SF-Pro-Text-Light.otf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/SF-Pro-Text-Font-Family/SF-Pro-Text-LightItalic.otf",
+      weight: "300",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/SF-Pro-Text-Font-Family/SF-Pro-Text-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/SF-Pro-Text-Font-Family/SF-Pro-Text-RegularItalic.otf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/SF-Pro-Text-Font-Family/SF-Pro-Text-Medium.otf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/SF-Pro-Text-Font-Family/SF-Pro-Text-MediumItalic.otf",
+      weight: "500",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/SF-Pro-Text-Font-Family/SF-Pro-Text-Semibold.otf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/SF-Pro-Text-Font-Family/SF-Pro-Text-SemiboldItalic.otf",
+      weight: "600",
+      style: "italic",
+    },
+    {
+      path: "../../public/fonts/SF-Pro-Text-Font-Family/SF-Pro-Text-Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/SF-Pro-Text-Font-Family/SF-Pro-Text-BoldItalic.otf",
+      weight: "700",
+      style: "italic",
+    },
+  ],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,9 +76,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const queryClient = getQueryClient();
+  queryClient.prefetchQuery({
+    queryKey: ["tasks"],
+    queryFn: () => getUserTasks(),
+  });
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.variable} ${sfProText.variable} font-inter`}>
+        <ReactQueryProvider>
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            {children}
+          </HydrationBoundary>
+        </ReactQueryProvider>
+      </body>
+      <Toaster richColors />
     </html>
   );
 }
