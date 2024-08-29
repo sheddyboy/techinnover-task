@@ -11,7 +11,7 @@ interface SideBarProps {}
 const SideBar = ({}: SideBarProps) => {
   const router = useRouter();
   return (
-    <div className="flex h-full min-w-[276px] max-w-[500px] flex-col">
+    <div className="flex h-full min-w-[276px] flex-col">
       <div className="px-[48px] pb-[60px] pt-[40px]">
         <Image alt="logo" src="/logo.png" width={180} height={44} />
       </div>

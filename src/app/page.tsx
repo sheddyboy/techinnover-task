@@ -21,7 +21,7 @@ export default function Home() {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <main className="flex h-dvh">
         <ResizablePanelGroup direction="horizontal">
-          <ResizablePanel defaultSize={25}>
+          <ResizablePanel defaultSize={25} className="max-w-[500px]">
             <SideBar />
           </ResizablePanel>
           <ResizableHandle withHandle />
