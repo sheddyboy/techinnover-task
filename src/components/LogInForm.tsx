@@ -57,7 +57,12 @@ const LogInForm = ({}: LogInFormProps) => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="test@test.com" type="email" {...field} />
+                <Input
+                  placeholder="test@test.com"
+                  type="email"
+                  {...field}
+                  className="max-sm:text-[16px]"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -70,13 +75,17 @@ const LogInForm = ({}: LogInFormProps) => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" {...field} />
+                <Input
+                  type="password"
+                  {...field}
+                  className="max-sm:text-[16px]"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className="flex flex-col gap-2 mt-3">
+        <div className="mt-3 flex flex-col gap-2">
           <Button type="submit" className="w-full">
             Login
           </Button>
