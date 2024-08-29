@@ -20,7 +20,7 @@ const HomeComponent = ({}: HomeComponentProps) => {
       >
         <SideBar />
       </motion.div>
-      <div className="flex h-full flex-1 flex-col gap-[47px] overflow-hidden pt-[40px]">
+      <div className="flex h-full flex-1 flex-col gap-[47px] overflow-hidden pt-[40px] max-sm:gap-4">
         <Suspense fallback={<TasksWrapperSkeleton numberOfColumns={3} />}>
           <TasksWrapper />
         </Suspense>
