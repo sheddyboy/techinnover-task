@@ -415,7 +415,7 @@ const AddTaskForm = ({}: AddTaskFormProps) => {
             type="submit"
             className="h-auto w-full rounded-[12px] bg-[#4F35F3] py-[12px] text-[16px] leading-[24px] hover:bg-[#4F35F3]/80"
           >
-            Update
+            Add
           </Button>
         </div>
       </form>

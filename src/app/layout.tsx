@@ -4,9 +4,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import ReactQueryProvider from "@/Providers/reactQuery";
-import { getQueryClient } from "@/lib/reactQuery";
-import { getUserTasks } from "@/actions/task";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 const inter = Inter({ subsets: ["latin"], variable: "--inter" });
 
@@ -76,19 +73,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const queryClient = getQueryClient();
-  queryClient.prefetchQuery({
-    queryKey: ["tasks"],
-    queryFn: () => getUserTasks(),
-  });
   return (
     <html lang="en">
       <body className={`${inter.variable} ${sfProText.variable} font-inter`}>
-        <ReactQueryProvider>
-          <HydrationBoundary state={dehydrate(queryClient)}>
-            {children}
-          </HydrationBoundary>
-        </ReactQueryProvider>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
       <Toaster richColors />
     </html>
