@@ -26,8 +26,16 @@ const Navbar = ({ tasks, setBoardTasks }: NavbarProps) => {
     setBoardTasks &&
       setBoardTasks(
         tasks
-          ? tasks.filter((task) =>
-              task.name.toLowerCase().trim().includes(search),
+          ? tasks.filter(
+              (task) =>
+                task.name
+                  .toLowerCase()
+                  .trim()
+                  .includes(search.toLowerCase().trim()) ||
+                task.description
+                  ?.toLowerCase()
+                  .trim()
+                  .includes(search.toLowerCase().trim()),
             )
           : [],
       );
