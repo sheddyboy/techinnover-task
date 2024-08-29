@@ -17,9 +17,14 @@ import { toast } from "sonner";
 import { logIn, logInAsGuest } from "@/actions/auth";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { getQueryClient } from "@/lib/reactQuery";
+
 interface LogInFormProps {}
 
 const LogInForm = ({}: LogInFormProps) => {
+  const queryClient = getQueryClient();
+  queryClient.clear();
+
   const router = useRouter();
   const form = useForm<z.infer<typeof logInFormSchema>>({
     resolver: zodResolver(logInFormSchema),
