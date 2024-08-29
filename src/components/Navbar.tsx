@@ -11,6 +11,8 @@ import {
   useState,
 } from "react";
 import { Tasks } from "@/db/schema";
+import { PanelLeftDashed } from "lucide-react";
+import useStore from "@/store";
 
 interface NavbarProps {
   tasks: (typeof Tasks.$inferSelect)[] | null;
@@ -18,6 +20,7 @@ interface NavbarProps {
 }
 
 const Navbar = ({ tasks, setBoardTasks }: NavbarProps) => {
+  const { toggleSideBarWidth, sideBarWidth } = useStore();
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -47,8 +50,17 @@ const Navbar = ({ tasks, setBoardTasks }: NavbarProps) => {
   return (
     <div className="flex flex-wrap items-center justify-between gap-4 overflow-auto px-[38px]">
       <div className="flex shrink-0 items-center gap-4 font-sfProText text-[30px] font-medium leading-[32px] text-black">
+        <Button
+          variant={"link"}
+          className={`p-0 ${sideBarWidth === "276px" ? "hidden" : "flex"}`}
+          onClick={() => {
+            toggleSideBarWidth(sideBarWidth);
+          }}
+        >
+          <PanelLeftDashed />
+        </Button>
         {getFormattedDate()}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 max-sm:hidden">
           <Button variant={"link"} className="p-0">
             <Image
               alt="left-icon"
@@ -67,7 +79,7 @@ const Navbar = ({ tasks, setBoardTasks }: NavbarProps) => {
           </Button>
         </div>
       </div>
-      <div className="relative flex shrink-0 items-center">
+      <div className="relative flex shrink-0 items-center max-sm:w-full max-sm:max-w-none">
         <Image
           alt="search-icon"
           src={"/icons/search-icon.svg"}
@@ -79,7 +91,7 @@ const Navbar = ({ tasks, setBoardTasks }: NavbarProps) => {
           value={search}
           onChange={handleChange}
           placeholder="Search"
-          className="h-auto max-w-[236px] rounded-[6px] border border-[#dde2e4] py-[8px] pl-[40px] text-[14px] leading-[24px] -tracking-[0.006em] shadow-custom placeholder:text-[#9AA6AC] max-sm:text-[16px]"
+          className="h-auto max-w-[236px] rounded-[6px] border border-[#dde2e4] py-[8px] pl-[40px] text-[14px] leading-[24px] -tracking-[0.006em] shadow-custom placeholder:text-[#9AA6AC] max-sm:w-full max-sm:max-w-none max-sm:text-[16px]"
         />
       </div>
     </div>

@@ -4,6 +4,9 @@ import { arrayMove } from "@dnd-kit/sortable";
 
 interface Store {
   createTaskModal: boolean;
+  sideBarWidth: string;
+  setSideBarWidth: (value: string) => void;
+  toggleSideBarWidth: (value: string) => void;
   currentTask: typeof Tasks.$inferSelect | null;
   setCurrentTask: (task: typeof Tasks.$inferSelect | null) => void;
   editTaskModal: boolean;
@@ -38,6 +41,10 @@ interface Store {
 }
 
 const useStore = create<Store>((set) => ({
+  sideBarWidth: "276px",
+  setSideBarWidth: (value) => set({ sideBarWidth: value }),
+  toggleSideBarWidth: (currentWidth) =>
+    set({ sideBarWidth: currentWidth === "276px" ? "0px" : "276px" }),
   createTaskModal: false,
   editTaskModal: false,
   currentTask: null,
