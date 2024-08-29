@@ -8,6 +8,7 @@ import { taskCategoryEnum, Tasks } from "@/db/schema";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useMemo } from "react";
+import useIsMobile from "@/hooks/useIsMobile";
 
 interface CategoryProps {
   name: (typeof taskCategoryEnum)["enumValues"][number];
@@ -15,6 +16,7 @@ interface CategoryProps {
 }
 
 const Category = ({ name, tasks }: CategoryProps) => {
+  const isMobile = useIsMobile();
   const tasksIds = useMemo(() => tasks.map(({ id }) => id), [tasks]);
 
   const {
@@ -40,11 +42,10 @@ const Category = ({ name, tasks }: CategoryProps) => {
     <div
       ref={setNodeRef}
       style={style}
-      className={`${isDragging && "animate-pulse opacity-25"} shadow-custom2 mb-auto flex h-full w-[352px] shrink-0 flex-col gap-4 rounded-[8px] bg-[#F5F7F9] px-[8px] py-[12px]`}
+      className={`${isDragging && "animate-pulse opacity-25"} mb-auto flex h-full w-[352px] shrink-0 flex-col gap-4 rounded-[8px] bg-[#F5F7F9] px-[8px] py-[12px] shadow-custom2`}
     >
       <div
-        {...attributes}
-        {...listeners}
+        {...(!isMobile ? { ...attributes, ...listeners } : {})}
         className={"flex cursor-grab items-center justify-between"}
       >
         <div className="flex items-center gap-2">

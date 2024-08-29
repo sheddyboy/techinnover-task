@@ -17,12 +17,14 @@ import useStore from "@/store";
 import { toast } from "sonner";
 import { deleteTask } from "@/actions/task";
 import { getQueryClient } from "@/lib/reactQuery";
+import useIsMobile from "@/hooks/useIsMobile";
 
 interface TaskCardProps {
   task: typeof Tasks.$inferSelect;
 }
 
 const TaskCard = ({ task }: TaskCardProps) => {
+  const isMobile = useIsMobile();
   const queryClient = getQueryClient();
   const { setCurrentTask, setEditTaskModal } = useStore();
   const [menuToggle, setMenuToggle] = useState(false);
@@ -49,8 +51,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
     <Card
       ref={setNodeRef}
       style={style}
-      {...attributes}
-      {...listeners}
+      {...(!isMobile ? { ...attributes, ...listeners } : {})}
       className={`${isDragging && "animate-pulse opacity-25 active:cursor-grabbing"} cursor-grab rounded-[6px]`}
     >
       <CardContent className="flex flex-col gap-4 p-4">
